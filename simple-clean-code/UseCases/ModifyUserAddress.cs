@@ -17,6 +17,7 @@ namespace simple_clean_code.UseCases
         {
             if (User == null) return (null, new NotFoundException(nameof(User)));
             if (address == null) return (null, new ValidationException(nameof(address)));
+            if (!address.Validate()) return (null, new ValidationException(nameof(address)));
             User.PrimaryAddress = address;
             return (User, null);
         }

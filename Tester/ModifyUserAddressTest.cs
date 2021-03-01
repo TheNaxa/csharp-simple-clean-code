@@ -1,3 +1,4 @@
+using System.Text;
 using NUnit.Framework;
 using simple_clean_code.Exceptions;
 using simple_clean_code.Models;
@@ -13,14 +14,7 @@ namespace Tester
         public void Should_returnUser_with_address_modified()
         {
             var originalUser = UserFakeMother.BuildUserWithAddress();
-            var newAddress = new Address
-            {
-                AddressLine = "mi address line",
-                Number = "S/N",
-                Floor = "basement",
-                Door = "1",
-                ZipCode = 1232
-            };
+            var newAddress = AddressFakeMother.OkAddress();
 
             var (updatedUser, exception) = new ModifyUserAddress(originalUser).UpdateUserAddress(newAddress);
             Assert.NotNull(updatedUser);
@@ -42,6 +36,76 @@ namespace Tester
         public void Should_returnValidationException_Address()
         {
             var (_, exception) = new ModifyUserAddress(UserFakeMother.BuildUserWithAddress()).UpdateUserAddress(null);
+            Assert.NotNull(exception);
+            Assert.IsTrue(exception is ValidationException);
+            Assert.AreEqual(new ValidationException("address").Message, exception.Message);
+        }
+
+        [Test]
+        public void Should_returnValidationException_NoAddressLine()
+        {
+            var newAddress = AddressFakeMother.NoAddressLine();
+            var (_, exception) = new ModifyUserAddress(UserFakeMother.BuildUserWithAddress()).UpdateUserAddress(newAddress);
+            Assert.NotNull(exception);
+            Assert.IsTrue(exception is ValidationException);
+            Assert.AreEqual(new ValidationException("address").Message, exception.Message);
+        }
+
+        [Test]
+        public void Should_returnValidationException_AddressLineTooLong()
+        {
+            var newAddress = AddressFakeMother.AddressLineTooLong();
+            var (_, exception) = new ModifyUserAddress(UserFakeMother.BuildUserWithAddress()).UpdateUserAddress(newAddress);
+            Assert.NotNull(exception);
+            Assert.IsTrue(exception is ValidationException);
+            Assert.AreEqual(new ValidationException("address").Message, exception.Message);
+        }
+
+        [Test]
+        public void Should_returnValidationException_NoNumber()
+        {
+            var newAddress = AddressFakeMother.NoNumber();
+            var (_, exception) = new ModifyUserAddress(UserFakeMother.BuildUserWithAddress()).UpdateUserAddress(newAddress);
+            Assert.NotNull(exception);
+            Assert.IsTrue(exception is ValidationException);
+            Assert.AreEqual(new ValidationException("address").Message, exception.Message);
+        }
+
+        [Test]
+        public void Should_returnValidationException_NumberTooLong()
+        {
+            var newAddress = AddressFakeMother.NumberTooLong();
+            var (_, exception) = new ModifyUserAddress(UserFakeMother.BuildUserWithAddress()).UpdateUserAddress(newAddress);
+            Assert.NotNull(exception);
+            Assert.IsTrue(exception is ValidationException);
+            Assert.AreEqual(new ValidationException("address").Message, exception.Message);
+        }
+
+        [Test]
+        public void Should_returnValidationException_NoZipCode()
+        {
+            var newAddress = AddressFakeMother.NoZipCode();
+            var (_, exception) = new ModifyUserAddress(UserFakeMother.BuildUserWithAddress()).UpdateUserAddress(newAddress);
+            Assert.NotNull(exception);
+            Assert.IsTrue(exception is ValidationException);
+            Assert.AreEqual(new ValidationException("address").Message, exception.Message);
+        }
+
+        [Test]
+        public void Should_returnValidationException_DoorTooLong()
+        {
+            var newAddress = AddressFakeMother.DoorTooLong();
+            var (_, exception) = new ModifyUserAddress(UserFakeMother.BuildUserWithAddress()).UpdateUserAddress(newAddress);
+            Assert.NotNull(exception);
+            Assert.IsTrue(exception is ValidationException);
+            Assert.AreEqual(new ValidationException("address").Message, exception.Message);
+        }
+
+        [Test]
+        public void Should_returnValidationException_FloorTooLong()
+        {
+            var newAddress = AddressFakeMother.FloorTooLong();
+            var (_, exception) = new ModifyUserAddress(UserFakeMother.BuildUserWithAddress()).UpdateUserAddress(newAddress);
             Assert.NotNull(exception);
             Assert.IsTrue(exception is ValidationException);
             Assert.AreEqual(new ValidationException("address").Message, exception.Message);

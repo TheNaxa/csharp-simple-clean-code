@@ -26,5 +26,8 @@ Vamos a validar los datos de la dirección y crear los test correspondientes par
 # Pero Isra, que esto sigue sin hacer nada
 Calma, calma, ya tenemos una entidad que actualiza su dirección y además validamos los datos de la misma, y negocio puede aprobar este funcionamiento porque tenemos una implementación muy limpia.
 
-Ahora vamos a hacer que la aplicación funcione, vamos a crear una capa aplicación que se encargue de invocar a nuestro objeto de negocio.
-Para ello necesitará tener acceso a algun repositorio para obtener los datos actuales del usuario, y para guardar los nuevos datos.
+Ahora vamos a hacer que la aplicación funcione, vamos a crear una capa Application que se encargue de invocar a nuestro objeto de negocio, envolviendolo en una Fachada que se encargue de recuperar y actualizar los datos.
+Para ello necesitará tener acceso a algun repositorio para obtener los datos actuales del usuario y guardar los nuevos datos de la dirección.
+
+# Genial, y ahora?
+Pues ahora nada, ya solo queda integrar el código en el flujo de la aplicación existente, implementar los repositorios ... no olvides testearlos!! y a producción! ;-)

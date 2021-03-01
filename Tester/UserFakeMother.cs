@@ -6,9 +6,14 @@ namespace Tester
     {
         public static User BuildUserWithAddress()
         {
+            return BuildUserWithAddress(1);
+        }
+        
+        public static User BuildUserWithAddress(int userId)
+        {
             return new()
             {
-                Id = 1,
+                Id = userId,
                 Name = "name",
                 LastName = "last_name",
                 PrimaryAddress = new Address
